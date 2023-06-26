@@ -1,0 +1,91 @@
+syntax            = "proto3";  // Proto协议
+option go_package = "./;common";
+import "common.proto";
+package pos;  //当前包名
+
+// 玩家位置信息
+message PbPlayerPos {
+    uint32 UID           = 1;  // 用户ID
+    commons.PbPosition P = 2;
+}
+
+// 玩家简略信息
+message PbPlayerMin {
+    uint32 UID                          = 1;  // 用户ID
+    string Name                         = 2;  // 昵称
+    uint32 Sex                          = 3;  // 性别
+    repeated commons.PbDresseds Dressed = 4;  // 穿戴信息
+    uint32 LocalTime                    = 5;  // 服务器本地时间
+    uint32 Action                       = 6;  // 用户行为，1站立、空闲，2行走，3跑，4跳
+}
+
+// 玩家详细信息
+message PbPlayerInfo {
+    uint32 UID  = 1;  // 用户ID
+    string Name = 2;  // 昵称
+}
+
+// C2S_MsgID=90@2
+message C2SPlayerMove {
+    uint32 UID                = 1;  // 用户ID
+    commons.PbPosition CurPos = 2;  // 当前位置
+}
+
+// 玩家广播数据
+//  S2C_MsgID=90@10000
+message S2CSyncPos {
+    repeated PbPlayerPos Lst = 1;  // 用户位置信息列表
+}
+
+// S2C_MsgID=90@10003
+message S2CPlayerRemove {
+    repeated uint32 Lst = 1;  // 用户ID列表
+}
+
+// 服务器发给客户端的玩家简略信息（场景显示玩家所需信息）
+// S2C_MsgID=90@10001
+message S2CPlayerMin {
+    repeated PbPlayerMin Lst = 1;
+}
+
+// 客户端发给服务器，获取玩家详细信息
+// C2S_MsgID=90@1
+message C2SPlayerInfo {
+    uint32 UID = 1;  // 用户ID
+}
+
+// 服务器发给客户端的玩家详细信息（查看玩家详情所需信息）
+// S2C_MsgID=90@10002
+message S2CPlayerInfo {
+    PbPlayerInfo Data = 1;  // 用户信息
+}
+
+// 客户端发给服务器，获取玩家详细信息
+// C2S_MsgID=90@3
+message C2SChangeAction {
+    uint32 UID    = 1;  // 用户ID
+    uint32 Action = 2;  // 用户行为，1站立、空闲，2行走，3跑，4跳
+}
+
+// 服务器发给客户端的玩家详细信息（查看玩家详情所需信息）
+// S2C_MsgID=90@10004
+message S2CChangeAction {
+    uint32 UID    = 1;  // 用户ID
+    uint32 Action = 2;  // 用户行为
+}
+
+// 客户端发给服务器，切换地图
+// C2S_MsgID=90@4
+message C2SChangeMap {
+    uint32 MapId = 1;  // 目的地map id
+    uint32 PosId = 2;  // 转跳点id
+}
+
+// 服务器发给客户端，回应切换地图
+// S2C_MsgID=90@10005
+message S2CChangeMap {
+    uint32 Result             = 1;  // 返回信息，0成功，1失败
+    uint32 MapId              = 2;  // 目的地map id
+    uint32 PosId              = 3;  // 转跳点id，>0时有效，=0时CurPos有效
+    commons.PbPosition CurPos = 4;  // 退出战斗场景，同步进入战斗之前的位置信息
+}

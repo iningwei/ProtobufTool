@@ -1,0 +1,108 @@
+syntax            = "proto3";
+option go_package = "./;common";
+package commons;
+
+// 空数据
+message PbEmptyMsg {
+}
+
+// 位置信息
+message PbVec3 {
+    float X = 1;
+    float Y = 2;
+    float Z = 3;
+}
+
+message PbPosition {
+    PbVec3 Pos = 1;  // 位置
+    PbVec3 Dir = 2;  // 朝向
+}
+
+// 服务器返回用户关闭
+message PbClinetCloseMsg {
+    uint32 result = 1;  // 返回信息
+    uint32 uid    = 2;  // 玩家ID
+}
+
+// 点对点推送 枚举
+enum PTPResp {
+    PTP_AVATAR_TIME_OUT = 0;  // 用户装扮到期
+}
+
+// 点对点推送
+message PbRolePTPPushResp {
+    PTPResp Types = 1;
+}
+
+// 装扮信息
+message PbDress {
+    uint32 itemId          = 1;   // 物品ID
+    uint32 itemUid         = 2;   // 子ID
+    uint32 number          = 3;   // 物品数量
+    PbDurable durable      = 4;   // 剩余耐久度
+    uint32 typeOfExistence = 5;   // 装扮存在类型 0 没有类型 1 赛季 >1 秒
+    uint32 startTime       = 6;   // 开始时间 [ 赛季：开始时间  秒：获取时间 ]
+    uint32 endTime         = 7;   // 结束时间 [ 赛季：结束时间  秒：到期时间 ]
+    uint32 star            = 8;   // 星级
+    uint32 level           = 9;   // 级别
+    uint32 up              = 10;  // 上限
+    uint32 down            = 11;  // 下限
+    bool isDressUp         = 12;  // 是否已经装扮
+    bool isNew             = 13;  // 是否是新获得
+    bool isLock            = 14;  // 是否锁定
+    uint32 LockTime        = 15;  // 锁定时间
+    uint32 sex             = 16;  // 服装性别
+    bool isDefault         = 17;  // 是否是默认
+}
+
+// 耐久度信息
+message PbDurable {
+    bool isDurable = 1;  // 是否有耐久
+    uint32 durable = 2;  // 总耐久
+    uint32 used    = 3;  // 使用的耐久度
+}
+
+// 通用道具结构
+message PbItem {
+    uint32 itemUid = 1;  // 道具唯一ID
+    uint32 itemId  = 2;  // 道具配置ID
+    uint32 Number  = 3;  // 道具数量
+    uint32 Times   = 4;  // 道具有效期[0:没有时效 1:赛季道具 >1:时效时间]
+    uint32 Durable = 5;  // 道具耐久度[0:没有耐久度 >0:当前耐久度]
+    uint32 Lock    = 6;  // 道具锁定期[0:没有锁定 1：锁定时间]
+}
+
+// 返回用户数据
+message PbUserBase {
+    uint32 uid                  = 1;   // 用户ID
+    uint32 birth                = 2;   // 出生时间
+    string city                 = 3;   // 城市
+    uint32 sex                  = 4;   // 性别
+    string nickName             = 5;   // 昵称
+    uint32 level                = 6;   // 级别
+    string avatar               = 7;   // 头像
+    uint64 power                = 8;   // 体力
+    uint64 nftCount             = 9;   // nft数量
+    uint64 ranking              = 10;  // 排名
+    uint64 quarterScore         = 11;  // 季度赛分数
+    repeated PbDresseds dressed = 12;  // 穿戴信息
+    string microBlog            = 13;  // 博客账号
+    string QQ                   = 14;  // QQ账号
+    string mailBox              = 15;  // e-mail账号
+    string Phone                = 16;  // 手机号
+    string weChat               = 17;  // 微信号
+    string IdCard               = 18;  // 身份证验证信息
+    uint32 isVerify             = 19;  // 是否验证 0位 手机号验证 1位 微信号验证 【备注 已经验证为1】
+    repeated PbItem currency    = 20;  // 货币背包
+    uint32 LocalTime            = 21;  // 服务器本地时间
+    uint32 mapId                = 22;  // 玩家所在地图id
+    uint64 roomId               = 23;  // 玩家所在房间
+    PbPosition Pos              = 24;  // 玩家所在位置
+}
+
+// 用户已经穿戴的数
+message PbDresseds {
+    uint32 ItemId  = 1;  // 道具ID
+    uint32 ItemUid = 2;  // 物品ID
+    uint32 EndTime = 3;  // 到期时间
+}

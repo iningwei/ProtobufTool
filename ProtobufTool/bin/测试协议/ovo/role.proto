@@ -1,0 +1,167 @@
+﻿syntax = "proto3";
+option go_package = "./;common";
+import "common.proto";
+import "enumeration.proto";
+package role;
+
+// 创建角色
+// C2S_MsgID=103@1
+message C2SMsgCreateRoleReq
+{
+  uint32  birth    = 1;    // 出生时间
+  string  city     = 2;    // 城市
+  uint32  sex      = 3;    // 性别
+  string  nickName = 4; // 昵称
+  string  dressed  = 5; // 穿戴信息
+  string  avatar   = 6; // 头像
+}
+
+// 创建角色返回
+// S2C_MsgID=103@101
+message S2CMsgCreateRoleResp {
+  enumeration.PbRoleRetResp   result  = 1; // 结果
+}
+
+// 请求其他用户数据
+// C2S_MsgID=103@2
+message C2SOtherUserBaseReq {
+  uint32 uid = 1; // 用户ID
+}
+
+// 返回用户数据
+// S2C_MsgID=100@103
+message S2CUserBaseResp {
+  commons.PbUserBase info = 1; // 用户基本数据
+}
+
+// 返回其他用户数据
+// S2C_MsgID=100@102
+message S2COtherUserBaseResp {
+    commons.PbUserBase other = 1; // 其他用户基本数据
+}
+
+// 修改角色基本信息
+// C2S_MsgID=103@3
+message C2SMsgChangeRoleBaseReq {
+  uint32  birth     = 1; // 出生时间
+  string  city      = 2; // 城市
+  string  avatar    = 3; // 头像
+  string  dressed   = 4; // 穿戴信息
+  string  nickName  = 5; // 昵称
+  string  microBlog = 6; // 微博
+  string  QQ        = 7; // qq
+  string  mailBox   = 8; // 邮箱
+  string  phone     = 9; // 手机
+  string  weChat    = 10;// 微信
+}
+
+// 修改角色基本信息返回
+// S2C_MsgID=103@103
+message S2CMsgChangeRoleBaseResp {
+  enumeration.PbRoleRetResp   result  = 1; // 结果
+}
+
+// 角色装扮请求信息
+// C2S_MsgID=100@6
+message C2SUserDressUpRep {
+  repeated uint32 oldDressed = 1; // 之前的装扮信息 [ 备注 可以不发 ]
+  repeated uint32 newDressed = 2; // 最新的装扮信息 [ 备注 必填 ]
+}
+
+// 角色装扮返回信息
+// S2C_MsgID=100@106
+message S2CUserDressUpResp {
+  repeated uint32 dressed = 1; // 最新装扮
+           bool   isOk    = 2; // 是否装扮成功 [ 备注 false 没有装扮成功 且 dressed 为空 true 装扮成功 ]
+}
+
+// 装扮List信息
+// S2C_MsgID=100@107
+message S2CAvatarInfoList {
+  repeated commons.PbDress avaterList = 1; // 装扮信息list
+}
+
+// 背包道具信息
+// S2C_MsgID=100@113
+message S2CItemsInfoList {
+  repeated commons.PbItem    items        = 1; // 道具背包
+  repeated uint32                newItems = 2; // 新的道具[uid]
+}
+
+// 装备修复
+// C2S_MsgID=105@3
+message  C2SAvatarRepairReq {
+           uint32   ItemUid                     = 1; // 装备唯一ID
+  repeated uint32   DressConsumeChildIds        = 2; // NFT装备消耗
+  bool              NftRepair                   = 3; // 是否是NFT装备修复
+  enumeration.ItemConsumeRetReq ItemConsumeType = 4; // 普通修复消耗[非必填,nft装备不填]
+}
+
+// 装备修复
+// S2C_MsgID=105@103
+message S2CAvatarRepairResp {
+  enumeration.AvatarRetResp result  = 1;  // 返回枚举值
+    uint32              ItemUid     = 2; // 唯一装备ID
+    uint32              Durable     = 3; // 装备耐久值
+}
+
+// 装备升级
+// C2S_MsgID=105@1
+message  C2SAvatarLevelUpReq {
+  uint32            ItemUid         = 1; // 装备唯一ID
+}
+
+// 装备升级
+// S2C_MsgID=105@101
+message  S2CAvatarLevelUpResp {
+  enumeration.AvatarRetResp Result  = 1; // 返回枚举值
+  uint32        ItemUid             = 2; // 装备唯一ID
+  uint32        Level               = 3; // 装备等级
+  uint32        Down                = 4; // 基础系数下限
+}
+
+// 装备升星
+// C2S_MsgID=105@2
+message  C2SAvatarStarUpReq {
+  uint32 ItemUid         = 1; // 装备唯一ID
+}
+
+// 装备升级
+// S2C_MsgID=105@102
+message  S2CAvatarStarUpResp {
+  enumeration.AvatarRetResp   result  = 1; // 返回枚举值
+  uint32          ItemUid             = 2; // 装备唯一ID
+  uint32          Star                = 3; // 装备星级
+  uint32          Up                  = 4; // 基础系数上限
+}
+
+// 检测Avatar是否超过有效期
+// C2S_MsgID=100@15
+message C2SCkAvaterTimeOutByChildId {
+  repeated uint32 ItemUid = 1; // 需要检测的avatar childId
+}
+
+// 检测Avatar是否超过有效期 返回基本结构体
+message CkAvaterTimeOutByChildIdResp{
+  bool            result = 1; // 状态 true 没有超时 false 已经超时
+  uint32          ItemUid= 2; // avatar子ID
+}
+
+// 返回检测Avatar是否超过有效期
+// S2C_MsgID=100@115
+message S2CCkAvaterTimeOutByChildIdResp {
+    repeated CkAvaterTimeOutByChildIdResp resp = 1; // 返回检测结果
+}
+
+// 歌曲列表
+message S2CMusicList {
+  repeated PbMusicInfo data = 1;
+}
+
+// 歌曲详细信息
+message PbMusicInfo {
+  uint32 musicId = 1; // 歌曲Id
+  uint32 number  = 2; // 获得分数
+  uint32 phase   = 3; // 完成阶段
+    bool isNew   = 4; // 是否为新
+}

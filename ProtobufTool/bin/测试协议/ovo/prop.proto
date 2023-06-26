@@ -1,0 +1,98 @@
+﻿syntax = "proto3";
+option go_package = "./;common";
+import "enumeration.proto";
+import "common.proto";
+package prop;
+
+// 道具信息更新推送
+// S2C_MsgID=104@201
+message S2CMsgUserItemsUpdate {
+  repeated commons.PbItem addCurs      = 1; // 增加的货币
+  repeated commons.PbItem upCurs       = 2; // 更新的货币
+  repeated uint32 delCurs              = 3; // 删除的货币
+  repeated commons.PbItem addItems     = 4; // 增加的道具
+  repeated commons.PbItem upItems      = 5; // 更新的道具
+  repeated uint32 delItems             = 6; // 删除的道具
+  repeated commons.PbDress addDress    = 7; // 增加的装备
+  repeated commons.PbDress upDress     = 8; // 更新的装备
+  repeated uint32  delDress            = 9; // 删除的装备
+  repeated uint32  addLst              = 10;// 增加列表
+}
+
+// 道具和合成
+// C2S_MsgID=100@14
+message C2SMergeItemReq {
+  uint32 mergeId = 1;// 需要合成的ID
+}
+
+// 返回道具合成结果
+// S2C_MsgID=100@114
+message S2CMergeItemResp {
+  enumeration.PbMergeResp result = 1; // 合成状态
+}
+
+// 道具出售
+// C2S_MsgID=104@1
+message C2SMsgBagSellItemReq
+{
+  repeated uint32 list = 1; // 出售的物品列表[物品uid,物品id]
+}
+
+// S2C_MsgID=104@101
+message S2CMsgBagSellItemResp
+{
+  enumeration.PropRetResp   result  = 1; // 结果
+}
+
+// 道具使用
+// C2S_MsgID=104@2
+message C2SMsgBagUseItemReq
+{
+  repeated uint32 list  = 1; // 使用的物品[物品uid,物品id,物品数量]
+           uint32 index = 2; // 选择的奖励序号[自选奖励使用]
+}
+
+// S2C_MsgID=104@102
+message S2CMsgBagUseItemResp
+{
+  enumeration.PropRetResp   result  = 1; // 结果
+}
+
+// 道具分解
+// C2S_MsgID=104@3
+message C2SMsgBagSplitItemReq
+{
+  repeated uint32 list = 1; // 分解的物品列表[物品uid,物品id]
+}
+
+// S2C_MsgID=104@103
+message S2CMsgBagSplitItemResp
+{
+  enumeration.PropRetResp   result  = 1; // 结果
+}
+
+// 道具解锁
+// C2S_MsgID=104@4
+message C2SMsgBagUnlockItemReq
+{
+  repeated uint32 list = 1; // 解锁的物品[物品uid,物品id]
+}
+
+// S2C_MsgID=104@104
+message S2CMsgBagUnlockItemResp
+{
+  enumeration.PropRetResp   result  = 1; // 结果
+}
+
+// 清除背包红点
+// C2S_MsgID=104@5
+message C2SMsgBagRedPointClearReq
+{
+
+}
+
+// S2C_MsgID=104@105
+message S2CMsgBagRedPointClearResp
+{
+  enumeration.PropRetResp   result  = 1; // 结果
+}

@@ -1,0 +1,15 @@
+E:\MyGitHub\ProtobufTool\ProtobufTool\bin\Debug\net6.0\ProtobufTool.exe
+E:\MyGitHub\ProtobufTool\ProtobufTool\bin\Debug\net6.0\ProtobufTool.deps.json
+E:\MyGitHub\ProtobufTool\ProtobufTool\bin\Debug\net6.0\ProtobufTool.runtimeconfig.json
+E:\MyGitHub\ProtobufTool\ProtobufTool\bin\Debug\net6.0\ProtobufTool.dll
+E:\MyGitHub\ProtobufTool\ProtobufTool\bin\Debug\net6.0\ProtobufTool.pdb
+E:\MyGitHub\ProtobufTool\ProtobufTool\obj\Debug\net6.0\ProtobufTool.csproj.AssemblyReference.cache
+E:\MyGitHub\ProtobufTool\ProtobufTool\obj\Debug\net6.0\ProtobufTool.GeneratedMSBuildEditorConfig.editorconfig
+E:\MyGitHub\ProtobufTool\ProtobufTool\obj\Debug\net6.0\ProtobufTool.AssemblyInfoInputs.cache
+E:\MyGitHub\ProtobufTool\ProtobufTool\obj\Debug\net6.0\ProtobufTool.AssemblyInfo.cs
+E:\MyGitHub\ProtobufTool\ProtobufTool\obj\Debug\net6.0\ProtobufTool.csproj.CoreCompileInputs.cache
+E:\MyGitHub\ProtobufTool\ProtobufTool\obj\Debug\net6.0\ProtobufTool.dll
+E:\MyGitHub\ProtobufTool\ProtobufTool\obj\Debug\net6.0\refint\ProtobufTool.dll
+E:\MyGitHub\ProtobufTool\ProtobufTool\obj\Debug\net6.0\ProtobufTool.pdb
+E:\MyGitHub\ProtobufTool\ProtobufTool\obj\Debug\net6.0\ProtobufTool.genruntimeconfig.cache
+E:\MyGitHub\ProtobufTool\ProtobufTool\obj\Debug\net6.0\ref\ProtobufTool.dll

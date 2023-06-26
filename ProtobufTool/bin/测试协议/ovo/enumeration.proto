@@ -1,0 +1,95 @@
+syntax = "proto3";
+option go_package = "./;common";
+package enumeration;
+
+// 用户登录枚举值
+enum LoginRetReq
+{
+  Q_ACCOUNT = 0; // 账号登录
+  Q_WECHAT  = 1; // 微信登录
+  Q_PHONE   = 2; // 电话号码登录
+}
+
+// 用户登录返回枚举值
+enum LoginRetResp
+{
+  RR_ERROR             = 0; // 错误
+  RR_SERVER_BUSY       = 1;
+  RR_NO_ROLE           = 2; // 没有角色
+  RR_SENSITIVEWORDS    = 3; // 敏感词
+  RR_SAME_NAME         = 4; // 重名
+  RR_ACCOUNT_PASSWORDS = 5; // 账号或者密码错误
+  RR_VERIFICATION      = 6; // 验证码错误
+  RR_PHONENUMBER       = 7; // 手机号码格式错误
+  RR_ACCOUNTEMPT       = 8; // 账号为空
+  RR_PASSEMPTY         = 9; // 密码为空
+  RR_SUCCESS           = 10;// 成功
+}
+
+// 道具相关协议返回枚举值
+enum PropRetResp
+{
+  PRR_SUCCESS                     = 0; // 成功
+  PRR_ERR                         = 1; // 错误
+  PRR_ERR_NOT_ENOUGH_ITEM         = 2; // 物品扣除不足
+  PRR_ERR_NOT_SELL_ITEM           = 3; // 物品不能出售
+  PRR_ERR_NOT_USE_ITEM            = 4; // 物品不能使用
+  PRR_ERR_NOT_SPLIT_ITEM          = 5; // 物品不能分解
+  PRR_ERR_NOT_UNLOCK_ITEM         = 6; // 物品不能解锁
+  PRR_ERR_REQUEST_PARAMETER       = 7; // 请求参数错误
+  PRR_ERR_BAG_CAPACITY_NOT_ENOUGH = 8; // 背包容量不足
+}
+
+// 合成枚举值
+enum PbMergeResp {
+  MERGE_ACCESS            = 0; // 合成成功
+  MERGE_ITEM_NUMBER_ERROR = 1; // 合成碎片不足
+  MERGE_FAIL              = 2; // 合成失败
+  MERGE_MERGE_ID_ERROR    = 3; // 合成ID错误
+  MERGE_DEL_ITEM_ERROR    = 4; // 删除已经合成的碎片失败
+}
+
+// 角色相关协议返回枚举值
+enum PbRoleRetResp
+{
+  RRR_SUCCESS             = 0; // 成功
+  RRR_ERR                 = 1; // 错误
+  RRR_BIRTH_ERR           = 2; // 角色出生时间错误
+  RRR_CITY_ERR            = 3; // 角色城市错误
+  RRR_SEX_ERR             = 4; // 角色性别错误
+  RRR_NICKNAME_LENGTH_ERR = 5; // 角色昵称长度错误
+  RRR_NICKNAME_SAME_ERR   = 6; // 角色昵称重名错误
+  RRR_CREATE_ERR          = 7; // 角色重复创建
+  RRR_ROLE_NOT_ERR        = 8; // 角色未创建
+  RRR_NICKNAME_NO_CHANGE  = 9; // 角色昵称未修改
+  RRR_PHONE_ERR           = 10;// 角色手机号错误
+}
+
+enum AvatarRetResp
+{
+  RER_ERROR                   = 0; // 错误
+  RER_SUCCESS                 = 1; // 成功
+  RER_NO_NEED_REPAIR          = 2; // 装备不需要修复
+  RER_MAX_DURABLE             = 3; // 装备耐久度已满
+  RER_NO_ENOUGH_STAR          = 4; // 装备星级不够
+  RER_NO_ENOUGH_LEVEL         = 5; // 装备等级不够
+  RER_NO_Dress                = 6; // 没有装备
+  RER_FAILED                  = 7; // 养成失败
+  RER_NO_ENOUGH_ITEM          = 8; // 养成道具不足
+  RER_DEL_ITEM_ERROR          = 9; // 扣除道具失败
+  RER_REQUEST_PARAMETER_ERROR = 10;// 请求参数错误
+  RER_MAX_STAR                = 11;// 装备星级已满
+  RER_MAX_Level               = 12;// 装备等级已满
+}
+
+enum ItemConsumeRetReq
+{
+  Q_PLUME = 0; // 消耗羽毛
+  Q_GOLD  = 1; // 消耗金币
+}
+
+enum MailTypeResp
+{
+  MAIL_NORMAL = 0; // 用户邮件
+  MAIL_OFGM   = 1; // GM邮件
+}
